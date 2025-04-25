@@ -9,7 +9,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Posts() {
+export default function Posts({ posts }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Posts" />
@@ -31,17 +31,36 @@ export default function Posts() {
                                 <th className="px-4 py-2">Title</th>
                                 <th className="px-4 py-2">Content</th>
                                 <th className="px-4 py-2">Created At</th>
-                                <th className="px-4 py-2">Updated At</th>
+                                <th className="px-4 py-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="border px-4 py-2">1</td>
-                                <td className="border px-4 py-2">Lorem Ipsum</td>
-                                <td className="border px-4 py-2">Lorem Ipsum</td>
-                                <td className="border px-4 py-2">2022-01-01</td>
-                                <td className="border px-4 py-2">2022-01-01</td>
-                            </tr>
+                            { posts.map((post, index) => (
+                                <tr key={post.id} className="border-b dark:border-neutral-700">
+                                    <td className="px-4 py-2 text-center">{index+1}</td>
+                                    <td className="px-4 py-2 text-center">{post.title}</td>
+                                    <td className="px-4 py-2 text-center">{post.content}</td>
+                                    <td className="px-4 py-2 text-center">{new Date(post.created_at).toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' })}</td>
+                                    <td className="px-4 py-2 text-center">
+                                        <Link
+                                            href={`/posts/${post.id}/edit`}
+                                            className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                                        >Edit</Link>
+
+                                        <Link
+                                            href={`/posts/${post.id}`}
+                                            method="delete"
+                                            as="button"
+                                            onClick={(e) => {
+                                                if (!confirm('Are you sure you want to delete this post?')) {
+                                                   e.preventDefault();
+                                                }
+                                            }}
+                                            className="bg-red-500 text-white ml-2 px-4 py-1 rounded hover:bg-red-600 cursor-pointer"
+                                        >Delete</Link>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
