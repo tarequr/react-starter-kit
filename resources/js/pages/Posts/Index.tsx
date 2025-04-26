@@ -40,7 +40,7 @@ export default function Posts({ posts }) {
                                     <td className="px-4 py-2 text-center">{index+1}</td>
                                     <td className="px-4 py-2 text-center">{post.title}</td>
                                     <td className="px-4 py-2 text-center">{post.content}</td>
-                                    <td className="px-4 py-2 text-center">{new Date(post.created_at).toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' })}</td>
+                                    <td className="px-4 py-2 text-center">{post.created_at}</td>
                                     <td className="px-4 py-2 text-center">
                                         <Link
                                             href={`/posts/${post.id}/edit`}

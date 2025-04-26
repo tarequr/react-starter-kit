@@ -64,7 +64,9 @@ export default function CreatePost() {
                         <label htmlFor="content" className="block text-sm font-medium text-gray-700">Content</label>
                         <textarea name="content" id="content" value={data.content} onChange={(e) => setData('content', e.currentTarget.value)} required className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 px-2 py-2" placeholder='Enter Content' rows={4}></textarea>
                     </div>
-                    <button type="submit" className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Create Post</button>
+                    <button type="submit" className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        { processing ? 'Creating...' : 'Create Post' }
+                    </button>
                 </form>
             </div>
         </AppLayout>

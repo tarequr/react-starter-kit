@@ -10,8 +10,17 @@ class PostController extends Controller
 {
     public function index()
     {
+        $posts = Post::with('user')->latest()->get()->map(function ($post) {
+            return [
+                'id' => $post->id,
+                'title' => $post->title,
+                'content' => $post->content,
+                'created_at' => $post->created_at->diffForHumans(),
+            ];
+        });
+
         return Inertia::render('Posts/Index', [
-            'posts' => Post::with('user')->latest()->get(),
+            'posts' => $posts,
         ]);
     }
 
